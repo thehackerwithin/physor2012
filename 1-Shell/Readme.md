@@ -1,7 +1,7 @@
 # The Shell
 
 [Back To The Menu](http://github.com/thehackerwithin/physor2012/)
-- [Forward to Python Variables](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/2a-PythonVariables/)
+- [Forward to Python Variables](http://github.com/thehackerwithin/physor2012/tree/master/2a-PythonVariables/)
 
 * * * * *
 
@@ -44,54 +44,6 @@ are different. I recommend sticking with bash and learning it well.
 To open a terminal, just double click on the "Konsole" icon on the
 Desktop.
 
-# The Example: Manipulating Experimental Data Files
-
-We will spend most of our time learning about the basics of the shell
-by manipulating some experimental data from a hearing tests. To get
-the data for this test, you will need internet access. Just enter the
-command:
-
-    git clone git://github.com/thehackerwithin/UofCSCBC2012.git
-
-This will grab all of the data needed for this workshop from the
-internet.
-
-**Cochlear Implants**
-
-A cochlear implant is a small electronic device that is surgically
-implanted in the inner ear to give deaf people a sense of
-hearing. More than a quarter of a million people have them, but there
-is still no widely-accepted benchmark to measure their effectiveness.
-In order to establish a baseline for such a benchmark, our supervisor
-got teenagers with CIs to listen to audio files on their computer and
-report:
-
-1.  the quietest sound they could hear
-2.  the lowest and highest tones they could hear
-3.  the narrowest range of frequencies they could discriminate
-
-To participate, subjects attended our laboratory and one of our lab
-techs played an audio sample, and recorded their data - when they
-first heard the sound, or first heard a difference in the sound.  Each
-set of test results were written out to a text file, one set per file.
-Each participant has a unique subject ID, and a made-up subject name.
-Each experiment has a unique experiment ID. The experiment has
-collected 351 files so far.
-
-The data is a bit of a mess! There are inconsistent file names, there
-are extraneous "NOTES" files that we'd like to get rid of, and the
-data is spread across many directories. We are going to use shell
-commands to get this data into shape. By the end we would like to:
-
-1.  Put all of the data into one directory called "alldata"
-
-2.  Have all of the data files in there, and ensure that every file
-    has a ".txt" extension
-
-3.  Get rid of the extraneous "NOTES" files
-
-If we can get through this example in the available time, we will move
-onto more advanced shell topics...
 
 # Let's get started
 
@@ -167,10 +119,10 @@ you will see that `testfile` is gone.
 **Changing Directories**
 
 Now, let's move to a different directory. The command `cd` (change
-directory) is used to move around. Let's move into the `UofCSCBC2012`
+directory) is used to move around. Let's move into the `physor2012`
 directory. Enter the following command:
 
-    cd UofCSCBC2012
+    cd physor2012
 
 Now use the `ls` command to see what is inside this directory. You
 will see that there is an entry which is green. This means that this
@@ -218,17 +170,17 @@ give `ls` the names of other directories to view. Navigate to the
 home directory if you are not already there. Then enter the
 command:
 
-    ls UofCSCBC2012
+    ls physor2012
 
-This will list the contents of the `UofCSCBC2012` directory without
+This will list the contents of the `physor2012` directory without
 you having to navigate there. Now enter:
 
-    ls UofCSCBC2012/1-Shell
+    ls physor2012/1-Shell
 
 This prints the contents of `1-Shell`. The `cd` command works in a
 similar way. Try entering:
 
-    cd UofCSCBC2012/1-Shell
+    cd physor2012/1-Shell
 
 and you will jump directly to `1-Shell` without having to go through
 the intermediate directory.
@@ -253,16 +205,16 @@ directory in `home` which is a directory in `/`.
 
 Now enter the following command:
 
-    cd /home/thw/UofCSCBC2012/1-Shell
+    cd /home/thw/physor2012/1-Shell
 
 This jumps to `1-Shell`. Now go back to the home directory. We saw
 earlier that the command:
 
-    cd UofCSCBC2012/1-Shell
+    cd physor2012/1-Shell
 
 had the same effect - it took us to the `1-Shell` directory. But,
 instead of specifying the full path
-(`/home/thw/UofCSCBC2012/1-Shell`), we specified a *relative path*. In
+(`/home/thw/physor2012/1-Shell`), we specified a *relative path*. In
 other words, we specified the path relative to our current
 directory. A full path always starts with a `/`. A relative path does
 not. You can usually use either a full path or a relative path
@@ -291,7 +243,7 @@ above your current directory. Thus:
 
     ls ..
 
-prints the contents of the `/home/thw/UofCSCBC2012`. You can chain
+prints the contents of the `/home/thw/physor2012`. You can chain
 these together, so:
 
     ls ../../
@@ -309,7 +261,7 @@ necessary, they are provided for your convenience.
 
 **Wild cards**
 
-Navigate to the `~/UofCSCBC2012/Shell-1/data/THOMAS` directory. This
+Navigate to the `~/physor2012/Shell-1/data/THOMAS` directory. This
 directory contains our hearing test data for THOMAS. If we type `ls`,
 we will see that there are a bunch of files which are just four digit
 numbers. By default, `ls` lists all of the files in a given
@@ -366,7 +318,7 @@ directory name. For example, enter:
     ls U<tab>
 
 The shell will fill in the rest of the directory name for
-`UofCSCBC2012`. Now enter:
+`physor2012`. Now enter:
 
     ls D<tab><tab>
 
@@ -421,7 +373,7 @@ this directory. Now, try to run the program by entering:
     hello
 
 You should get an error saying that hello cannot be found. That is
-because the directory `/home/thw/UofCSCBC2012/1-Shell` is not in the
+because the directory `/home/thw/physor2012/1-Shell` is not in the
 `PATH`. You can run the `hello` program by entering:
 
     ./hello
@@ -431,7 +383,7 @@ directory. This tells the shell to run the `hello` program which is
 located right here. So, you can run any program by entering the path
 to that program. You can run `hello` equally well by specifying:
 
-    /home/thw/UofCSCBC2012/1-Shell/hello
+    /home/thw/physor2012/1-Shell/hello
 
 Or by entering:
 
@@ -467,7 +419,7 @@ is where the name comes from, `cat` is short for concatenate).
 
 2.  Without changing directories, (you should still be in `1-Shell`),
     use one short command to print the contents of all of the files in
-    the /home/milad/UofCSCBC2012/1-Shell/data/THOMAS directory.
+    the /home/milad/physor2012/1-Shell/data/THOMAS directory.
 
 * * * *
 
@@ -507,7 +459,7 @@ argument for the program `mplayer` does. `mplayer` video playing program.
 ## Redirection
 
 Let's turn to the experimental data from the hearing tests that we
-began with. This data is located in the `~/UofCSCBC2012/1-Shell/data`
+began with. This data is located in the `~/physor2012/1-Shell/data`
 directory. Each subdirectory corresponds to a particular participant
 in the study. Navigate to the `Bert` subdirectory in `data`.  There
 are a bunch of text files which contain experimental data
@@ -534,7 +486,7 @@ exists.
 Use `>>`, to append the contents of all of the files which contain the
 number 4 in the directory:
 
-    /home/thw/UofCSCBC2012/1-Shell/data/gerdal
+    /home/thw/physor2012/1-Shell/data/gerdal
 
 to the existing `all_data` file. Thus, when you are done `all_data`
 should contain all of the experiment data from Bert and any
@@ -732,7 +684,7 @@ name to the file, then sort it.
 
 * * * *
 
-Let's navigate back to `~/UofCSCBC2012/1-Shell/data`. You should still
+Let's navigate back to `~/physor2012/1-Shell/data`. You should still
 have the `all_data` file hanging around here. Enter the following command:
 
     wc Bert/* | sort -n -k 3
