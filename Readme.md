@@ -32,7 +32,10 @@ It was organized by The Hacker Within, a peer-led computational science teaching
 
 Time  &  Topic
 
-8:30   [Set Up](http://github.com/thehackerwithin/physor2012/tree/master/0-SetUp/)
+Pre   [Set Up](http://github.com/thehackerwithin/physor2012/tree/master/0-SetUp/)
 
-9:00   [Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/)
+8:00   [Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/)
+9:00   [Version Control](http://github.com/thehackerwithin/physor2012/tree/master/2-VersionControlLocal/)
+10:00   [Python](http://github.com/thehackerwithin/physor2012/tree/master/3a-PythonVariable/)
+11:00   [PyNE](http://github.com/thehackerwithin/physor2012/tree/master/4-PyNE/)
 
