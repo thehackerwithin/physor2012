@@ -1,13 +1,13 @@
 # The Shell
 
-[Back To The Menu](http://github.com/thehackerwithin/UofCSCBC2012/)
+[Back To The Menu](http://github.com/thehackerwithin/physor2012/)
 - [Forward to Python Variables](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/2a-PythonVariables/)
 
 * * * * *
 
 **Presented By : Milad Fatenejad**
 
-**Most of this material came from a presentation by: ??????**
+**Most of this material came from a presentation by: Milad Fatenejad**
 
 # What is the shell how do I access the shell?
 
