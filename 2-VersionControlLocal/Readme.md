@@ -1,9 +1,8 @@
 # Local Version Control
 ----
 
-
 [Back To Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/)
-- [Forward To Python Variables](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/3a-PythonVariables/
+- [Forward To Python Variables](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/3a-PythonVariables/)
 
 ----
 
@@ -129,7 +128,7 @@ description. You can describe your repository by opening the description
 file and replacing the text with a name for the repository. Mine will be
 called "Reproducible Science". You may call yours anything you like.
 
-    $ gedit description &
+    $ nano description &
 
 ## git add : Adding a File To Version Control
 
@@ -141,7 +140,7 @@ create one, then we'll learn the **git add** command.
 
 Step 1 : Create a file to add to your repository.
 
-    $ gedit readme.rst &
+    $ nano readme.rst &
 
 Step 2 : Inform git that you would like to keep track of future changes
 in this file.
@@ -363,7 +362,68 @@ Step 3 : Merge the two branches into the core
      create mode 100644 firstnewfile
      create mode 100644 secondnewfile
 
+## git revert : Undoing changes
+
+So far, the benefits of version control may not seem like much:
+- you can associate fine-grained changes in your software/data with log messages
+- you can create branches to experiment with changes and then merge them ready
+
+One of the other major benefits is the ability to undo some of those
+fine-grained changes.  Because the individual changes are carefully
+captured and identified by a commit hash, git's **revert** command is
+able to identify which changes you want to remove and extract them
+from the newest set of files.
+
+### Exercise: Revert unwanted changes
+
+Step 1 : Commit a first change to your repository
+
+First, add some lines to your readme.rst file.
+
+     $ git commit -am "These are changes that I will later decide to revert."
+     [master 635ab65] These are changes that I will later decide to revert.
+     1 files changed, 1 insertions(+), 0 deletions(-)
+
+Step 2 : Undo those change before making any others
+
+     $ git revert HEAD
+     [master 589d0f1] I even get a log message to explain why I am reverting.
+     1 files changed, 0 insertions(+), 1 deletions(-)
+
+Step 3 : Commit some additional changes to the file
+
+Add some lines to your readme.rst file again.
+
+     $ git commit -am "Here are some changes that will be reverted after other changes."
+     [master 90c09df] Here are some changes that will be reverted after other changes."
+     1 files changed, 2 insertions(+), 0 deletions(-)
+
+Step 4 : Commit another round of improvements
+
+Add some addition lines to the file.
+
+     $ git commit -am "These are really good changes this time."
+     [master ee77c78] These are really good changes this time.
+     1 files changed, 1 insertions(+), 0 deletions(-)
+
+Step 5 : Undo the changes from step 3.
+
+We'll need to identify which changes we want to revert.  We can use
+**git log** to examine the list of changes, and then to examine that
+particular change.
+
+     $ git log -p
+
+Then revert that particular commit using its hash
+
+     $ git revert [hash]
+     [master 249322d] Removing offending commit.
+     1 files changed, 0 insertions(+), 1 deletions(-)
+
 ## git clone : Copying a Repository
+
+Everything so far has assumed that you'll only ever want to work on
+this data while on this computer.  
 
 The Hacker Within has its own online code repositories. You can check
 out code from them at any time, from anywhere. You checked out some code
