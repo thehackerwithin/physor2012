@@ -2,14 +2,14 @@
 ----
 
 
-[Back To Python Functions and
-Modules](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/2d-PythonFunctionsAndModules/)
-- [Forward To Remote Version
-Control](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/3b-VersionControlRemote/)
+[Back To Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/)
+- [Forward To Python Variables](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/3a-PythonVariables/
 
 ----
 
-**Presented By : Katy Huff**
+**Presented by : Paul Wilson**
+
+**Based on material by: Katy Huff**
 
 ## git : What is Version Control ?
 
@@ -368,10 +368,10 @@ Step 3 : Merge the two branches into the core
 The Hacker Within has its own online code repositories. You can check
 out code from them at any time, from anywhere. You checked out some code
 this morning at github
-[http://www.github.com/thehackerwithin/UofCSCBC2012.](http://www.github.com/thehackerwithin/UofCSCBC2012).
+[http://www.github.com/thehackerwithin/physor2012.](http://www.github.com/thehackerwithin/physor2012).
 
 Today, we'll check out a git type repository at
-www.github.com/thehackerwithin/UofCSCBC2012 .
+www.github.com/thehackerwithin/physor2012 .
 
 When you clone the Original repository, the one that is created on your
 local machine is a copy, and will behave as a fully fledged local
