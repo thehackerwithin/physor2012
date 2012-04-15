@@ -1,8 +1,9 @@
 # Local Version Control
 ----
 
-[Back To Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/)
-- [Forward To Python Variables](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/3a-PythonVariables/)
+[Back To Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/readme.md)
+- [Forward To Python Variables](
+http://github.com/thehackerwithin/physor2012/tree/master/3a-PythonVariables/readme.md)
 
 ----
 
