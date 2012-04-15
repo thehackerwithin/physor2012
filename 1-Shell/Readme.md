@@ -5,7 +5,7 @@
 
 * * * * *
 
-**Presented By : Milad Fatenejad**
+**Presented By : Joshua Peterson**
 
 **Most of this material came from a presentation by: Milad Fatenejad**
 
@@ -118,9 +118,12 @@ you will see that `testfile` is gone.
 
 **Changing Directories**
 
-Now, let's move to a different directory. The command `cd` (change
+Now, let's create a directory called physor 2012. The command `cd` (change
 directory) is used to move around. Let's move into the `physor2012`
 directory. Enter the following command:
+
+    mkdir physor2012
+
 
     cd physor2012
 
@@ -129,10 +132,6 @@ will see that there is an entry which is green. This means that this
 is an executable. If you use `ls -F` you will see that this file ends
 with a star.
 
-This directory contains all of the material for this boot camp. Now
-move to the directory containing the data for the shell tutorial:
-
-    cd 1-Shell
 
 If you enter the `cd` command by itself, you will return to the home
 directory. Try this, and then navigate back to the `1-Shell`
@@ -170,19 +169,19 @@ give `ls` the names of other directories to view. Navigate to the
 home directory if you are not already there. Then enter the
 command:
 
-    ls physor2012
+    ls /usr
 
-This will list the contents of the `physor2012` directory without
+This will list the contents of the `bin` directory without
 you having to navigate there. Now enter:
 
-    ls physor2012/1-Shell
+    ls usr/games
 
-This prints the contents of `1-Shell`. The `cd` command works in a
+This prints the contents of `games`. The `cd` command works in a
 similar way. Try entering:
 
-    cd physor2012/1-Shell
+    cd usr/games
 
-and you will jump directly to `1-Shell` without having to go through
+and you will jump directly to `games` without having to go through
 the intermediate directory.
 
 ## Full vs. Relative Paths
@@ -194,7 +193,7 @@ hierarchy. The full path tells you where a directory is in that
 hierarchy. Navigate to the home directory. Now, enter the `pwd`
 command and you should see:
 
-    /home/thw
+    /usr/games
 
 which is the full name of your home directory. This tells you that you
 are in a directory called `thw`, which sits inside a directory called
@@ -205,16 +204,17 @@ directory in `home` which is a directory in `/`.
 
 Now enter the following command:
 
-    cd /home/thw/physor2012/1-Shell
+    cd /home/thw/physor2012
 
-This jumps to `1-Shell`. Now go back to the home directory. We saw
+This jumps to `physor2012`. Now go back to the home directory. We saw
 earlier that the command:
 
-    cd physor2012/1-Shell
+    cd 
+    cd physor2012
 
 had the same effect - it took us to the `1-Shell` directory. But,
 instead of specifying the full path
-(`/home/thw/physor2012/1-Shell`), we specified a *relative path*. In
+(`/home/thw/physor2012/`), we specified a *relative path*. In
 other words, we specified the path relative to our current
 directory. A full path always starts with a `/`. A relative path does
 not. You can usually use either a full path or a relative path
@@ -261,28 +261,23 @@ necessary, they are provided for your convenience.
 
 **Wild cards**
 
-Navigate to the `~/physor2012/Shell-1/data/THOMAS` directory. This
-directory contains our hearing test data for THOMAS. If we type `ls`,
-we will see that there are a bunch of files which are just four digit
-numbers. By default, `ls` lists all of the files in a given
+Navigate to the `~/usr/bin/` directory. If we type `ls`,
+we will see that there are a bunch of files . By default, `ls` lists all of the files in a given
 directory. The `*` character is a shortcut for "everything". Thus, if
 you enter `ls *`, you will see all of the contents of a given
 directory. Now try this command:
 
-    ls *1
+    ls l*
 
-This lists every file that ends with a `1`. This command:
+This lists every file that starts with a `1`. This command:
 
-    ls /usr/bin/*.sh
+    ls /usr/bin/*dir
 
-Lists every file in `/usr/bin` that ends in the characters `.sh`. And
+Lists every file in `/usr/bin` that ends in the characters `dir`. And
 this command:
 
-    ls *4*1
+    ls *ess*
 
-lists every file in the current directory which contains the number
-`4`, and ends with the number `1`. There are four such files: `0241`,
-`0341`, `0431`, and `0481`. 
 
 So how does this actually work? Well...when the shell (bash) sees a
 word that contains the `*` character, it automatically looks for files
@@ -290,8 +285,7 @@ that match the given pattern. In this case, it identified four such
 files. Then, it replaced the `*4*1` with the list of files, separated
 by spaces. In other the two commands:
 
-    ls *4*1
-    ls 0241 0341 0431 0481
+    ls *ess*
 
 are exactly identical. The `ls` command cannot tell the difference
 between these two things.
@@ -366,48 +360,53 @@ shell looks for programs to run. If your program is not in this list,
 then an error is printed. The shell ONLY checks in the places listed
 in the `PATH` environment variable. 
 
-Navigate to the `1-Shell` directory and list the contents. You will
-notice that there is a program (executable file) called `hello` in
-this directory. Now, try to run the program by entering:
+Copy the game solitaire to your home directory and rename it
 
-    hello
+     cp /usr/games/ace-solitaire solitar    
 
-You should get an error saying that hello cannot be found. That is
-because the directory `/home/thw/physor2012/1-Shell` is not in the
-`PATH`. You can run the `hello` program by entering:
+Now try to run it by typing 
 
-    ./hello
+     solitar
+
+You should get an error saying that solitar cannot be found. That is
+because the directory `/home/thw/` is not in the
+`PATH`. You can run the `solitar` program by entering:
+
+    ./solitar
 
 Remember that `.` is a shortcut for the current working
 directory. This tells the shell to run the `hello` program which is
 located right here. So, you can run any program by entering the path
 to that program. You can run `hello` equally well by specifying:
 
-    /home/thw/physor2012/1-Shell/hello
+    /home/thw/physor2012/soitar
 
 Or by entering:
 
-    ../1-Shell/hello
+    ../thw/solitar
 
 When there are no `/` characters, the shell assumes you want to look
 in one of the default places for the program.
-
+ 
 
 ## Examining Files
 
 We now know how to switch directories, run programs, and look at the
 contents of directories, but how do we look at the contents of files?
 
+
 The easiest way to examine a file is to just print out all of the
-contents using the program `cat`. Enter the following command:
+contents using the program `cat`. Go to the directory /usr/local
 
-    cat ex_data.txt
+Enter the following command:
 
-This prints out the contents of the `ex_data.txt` file. If you enter:
+    cat Python_License.txt
 
-    cat ex_data.txt ex_data.txt
+This prints out the contents of the `Python_License.txt` file. If you enter:
 
-It will print out the contents of `ex_data.txt` twice. `cat` just
+    cat Python_Licence.txt Python_Licence.txt
+
+It will print out the contents of `Python_Licence.txt` twice. `cat` just
 takes a list of file names and writes them out one after another (this
 is where the name comes from, `cat` is short for concatenate). 
 
@@ -419,7 +418,7 @@ is where the name comes from, `cat` is short for concatenate).
 
 2.  Without changing directories, (you should still be in `1-Shell`),
     use one short command to print the contents of all of the files in
-    the /home/milad/physor2012/1-Shell/data/THOMAS directory.
+    the /usr/share/dict/ directory.
 
 * * * *
 
@@ -458,18 +457,15 @@ argument for the program `mplayer` does. `mplayer` video playing program.
 
 ## Redirection
 
-Let's turn to the experimental data from the hearing tests that we
-began with. This data is located in the `~/physor2012/1-Shell/data`
-directory. Each subdirectory corresponds to a particular participant
-in the study. Navigate to the `Bert` subdirectory in `data`.  There
+Navigate to the `Physor2012` director.  There
 are a bunch of text files which contain experimental data
 results. Lets print them all:
 
-    cat au*
+    cat /usr/share/dict/american-english
 
 Now enter the following command:
 
-    cat au* > ../all_data
+    cat /usr/share/dict/* > ../all_data
 
 This tells the shell to take the output from the `cat au*` command and
 dump it into a new file called `../all_data`. To verify that this
@@ -480,19 +476,7 @@ file on the right. The `>>` characters do almost the same thing,
 except that they will append the output to the file if it already
 exists.
 
-* * * *
-**Short Exercise**
 
-Use `>>`, to append the contents of all of the files which contain the
-number 4 in the directory:
-
-    /home/thw/physor2012/1-Shell/data/gerdal
-
-to the existing `all_data` file. Thus, when you are done `all_data`
-should contain all of the experiment data from Bert and any
-experimental data file from gerdal that contains the number 4.
-
-* * * *
 
 
 ## Creating, moving, copying, and removing
@@ -549,13 +533,13 @@ The `wc` program (word count) counts the number of lines, words, and
 characters in one or more files. Make sure you are in the `data`
 directory, then enter the following command:
 
-    wc Bert/* gerdal/Data0559
+    wc /usr/share/dict/british-english
 
 For each of the files indicated, `wc` has printed a line with three
 numbers. The first is the number of lines in that file. The second is
 the number of words. Finally, the total number of characters is
 indicated. The final line contains this information summed over all of
-the files. Thus, there were 7062 characters in total. 
+the files. Thus, there were 929844 characters in total. 
 
 Remember that the `Bert/*` and `gerdal/Data0559` files were merged
 into the `all_data` file. So, we should see that `all_data` contains
@@ -564,7 +548,7 @@ the same number of characters:
     wc all_data
 
 Every character in the file takes up one byte of disk space. Thus, the
-size of the file in bytes should also be 7062. Let's confirm this:
+size of the file in bytes should also be 929844. Let's confirm this:
 
     ls -l all_data
 
@@ -577,76 +561,6 @@ that the fifth column is the size of the file in bytes.
 Figure out how to get `wc` to print the length of the longest line in
 `all_data`.
 
-* * * *
-
-## The awesome power of the Pipe
-
-Suppose I wanted to only see the total number of character, words, and
-lines across the files `Bert/*` and `gerdal/Data0559`. I don't want to
-see the individual counts, just the total. Of course, I could just do:
-
-    wc all_data
-
-Since this file is a concatenation of the smaller files. Sure, this
-works, but I had to create the `all_data` file to do this. Thus, I
-have wasted a precious 7062 bytes of hard disk space. We can do this
-*without* creating a temporary file, but first I have to show you two
-more commands: `head` and `tail`. These commands print the first few,
-or last few, lines of a file, respectively. Try them out on
-`all_data`:
-
-    head all_data
-    tail all_data
-
-The `-n` option to either of these commands can be used to print the
-first or last `n` lines of a file. To print the first/last line of the
-file use:
-
-    head -n 1 all_data
-    tail -n 1 all_data
-
-Let's turn back to the problem of printing only the total number of
-lines in a set of files without creating any temporary files. To do
-this, we want to tell the shell to take the output of the `wc Bert/*
-gerdal/Data0559` and send it into the `tail -n 1` command. The `|`
-character (called pipe) is used for this purpose. Enter the following
-command:
-
-    wc Bert/* gerdal/Data0559 | tail -n 1
-
-This will print only the total number of lines, characters, and words
-across all of these files. What is happening here? Well, `tail`, like
-many command line programs will read from the *standard input* when it
-is not given any files to operate on. In this case, it will just sit
-there waiting for input. That input can come from the user's keyboard
-*or from another program*. Try this:
-
-    tail -n 2
-
-Notice that your cursor just sits there blinking. Tail is waiting for
-data to come in. Now type:
-
-    Milad
-    is
-    good
-
-then CONTROL+d. You should is the lines:
-
-    is
-    good
-
-printed back at you. The CONTROL+d keyboard shortcut inserts an
-*end-of-file* character. It is sort of the standard way of telling the
-program "I'm done entering data". The `|` character is replaces the
-data from the keyboard with data from another command. You can string
-all sorts of commands together using the pipe. 
-
-The philosophy behind these command line programs is that none of them
-really do anything all that impressive. BUT when you start chaining
-them together, you can do some really powerful things really
-efficiently. If you want to be proficient at using the shell, you must
-learn to become proficient with the pipe and redirection operators:
-`|`, `>`, `>>`.
 
 
 **A sorting example**
@@ -684,22 +598,6 @@ name to the file, then sort it.
 
 * * * *
 
-Let's navigate back to `~/physor2012/1-Shell/data`. You should still
-have the `all_data` file hanging around here. Enter the following command:
-
-    wc Bert/* | sort -n -k 3
-
-We are already familiar with what the first of these two commands
-does: it creates a list containing the number of characters, words,
-and lines in each file in the `Bert` directory. This list is then
-piped into the `sort` command, so that it can be sorted. Notice there
-are two options given to sort:
-
-1.  `-n`: Sort in numerical order as opposed to alphabetical order
-2.  `-k 3`: Sort based on the numbers in the third column
-
-Notice that the files are sorted by the number of characters.
-
 * * * *
 **Short Exercise**
 
@@ -708,49 +606,7 @@ reverse order.
 
 * * * *
 
-* * * * 
-**Short Exercise**
 
-Combine the `wc`, `sort`, `head` and `tail` commands so that only the
-`wc` information for the largest file is listed
-
-Hint: To print the smallest file, use:
-
-    wc Bert/* | sort -n -k 3 | head -n 1
-
-* * * * 
-
-Printing the smallest file seems pretty useful. We don't want to type
-out that long command often. Let's create a simple script, a simple
-program, to run this command. The program will look at all of the
-files in the current directory and print the information about the
-smallest one. Let's call the script `smallest`. We'll use `nano` to
-create this file. Navigate to the `data` directory, then:
-
-    nano smallest
-
-Then enter the following text:
-
-    #!/bin/bash
-    wc * | sort -n -k 3 | head -n 1
-
-Now, `cd` into the `Bert` directory and enter the command
-`../smallest`. Notice that it says permission denied. This happens
-because we haven't told the shell that this is an executable
-file. Enter the following commands:
-
-    chmod a+x ../smallest
-    ../smallest
-
-The `chmod` command is used to modify the permissions of a file. This
-particular command modifies the file `../smallest` by giving all users
-(notice the `a`) permission to execute (notice the `x`) the file. If
-you enter:
-
-    ls ../smallest
-
-You will see that the file name is green. Congratulations, you just
-created your first shell script!
 
 # Searching files
 
