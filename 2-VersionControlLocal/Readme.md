@@ -1,9 +1,9 @@
 # Local Version Control
 ----
 
-
-[Back To Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/)
-- [Forward To Python Variables](http://github.com/thehackerwithin/UofCSCBC2012/tree/master/3a-PythonVariables/
+[Back To Shell](http://github.com/thehackerwithin/physor2012/tree/master/1-Shell/readme.md)
+- [Forward To Python Variables](
+http://github.com/thehackerwithin/physor2012/tree/master/3a-PythonVariables/readme.md)
 
 ----
 
@@ -129,7 +129,7 @@ description. You can describe your repository by opening the description
 file and replacing the text with a name for the repository. Mine will be
 called "Reproducible Science". You may call yours anything you like.
 
-    $ gedit description &
+    $ nano description &
 
 ## git add : Adding a File To Version Control
 
@@ -141,7 +141,7 @@ create one, then we'll learn the **git add** command.
 
 Step 1 : Create a file to add to your repository.
 
-    $ gedit readme.rst &
+    $ nano readme.rst &
 
 Step 2 : Inform git that you would like to keep track of future changes
 in this file.
@@ -251,7 +251,7 @@ reviewed with the log command.
 
     $ git log
     commit 1863aefd7db752f58226264e5f4282bda641ddb3
-    Author: Katy Huff <katyhuff@gmail.com>
+    Author: Paul Wilson <wilsonp@engr.wisc.edu>
     Date:   Wed Feb 8 16:08:08 2012 -0600
 
         This is the first commit. It adds a readme file.
@@ -363,7 +363,107 @@ Step 3 : Merge the two branches into the core
      create mode 100644 firstnewfile
      create mode 100644 secondnewfile
 
+## git revert : Undoing changes
+
+So far, the benefits of version control may not seem like much:
+- you can associate fine-grained changes in your software/data with log messages
+- you can create branches to experiment with changes and then merge them ready
+
+One of the other major benefits is the ability to undo some of those
+fine-grained changes.  Because the individual changes are carefully
+captured and identified by a commit hash, git's **revert** command is
+able to identify which changes you want to remove and extract them
+from the newest set of files.
+
+### Exercise: Revert unwanted changes
+
+Step 1 : Commit a first change to your repository
+
+First, add some lines to your readme.rst file and then commit it.
+
+     $ git commit -am "These are changes that I will later decide to revert."
+     [master 635ab65] These are changes that I will later decide to revert.
+     1 files changed, 1 insertions(+), 0 deletions(-)
+
+Step 2 : Quickly undo those change before making any others.
+
+     $ git revert HEAD
+     [master 589d0f1] I even get a log message to explain why I am reverting.
+     1 files changed, 0 insertions(+), 1 deletions(-)
+
+Step 3 : Commit some additional changes to the file
+
+Add some lines to your readme.rst file again and commit it
+
+     $ git commit -am "Here are some changes that will be reverted after other changes."
+     [master 90c09df] Here are some changes that will be reverted after other changes."
+     1 files changed, 2 insertions(+), 0 deletions(-)
+
+Step 4 : Commit another round of improvements
+
+Add some addition lines to the file and make another commit.
+
+     $ git commit -am "These are really good changes this time."
+     [master ee77c78] These are really good changes this time.
+     1 files changed, 1 insertions(+), 0 deletions(-)
+
+Step 5 : Undo the changes from step 3.
+
+We'll need to identify which changes we want to revert.  We can use
+**git log** to examine the list of changes, and then to examine that
+particular change.
+
+     $ git log -p
+
+Then revert that particular commit using its hash
+
+     $ git revert [hash]
+     [master 249322d] Removing offending commit.
+     1 files changed, 0 insertions(+), 1 deletions(-)
+
 ## git clone : Copying a Repository
+
+Everything so far has assumed that you'll only ever want to work on
+this data while on this computer.  But what if you want a complete
+copy of this information, with all of its history somewhere else?
+Perhaps you want to put it on a USB drive to take to your other
+office.
+
+By making a clone of the original repository, you get a full copy,
+including all of the revision history.  In addition, the clone is
+aware of and linked to the origin so that it can stay syncronized.
+Any changes made in the original repository can be easily combined
+with this clone (**pull**) and any changes made in the clone can be
+easily combined with the original repository (**push**).
+
+### Exercise : Cloning your repository
+
+Step 0 : [Note: since all USB drives will show up as slightly different
+directories in the linux file system, we'll use a "fake" USB drive for
+this example by making a special directory.]
+
+     $ mkdir ~/pretendUSBDrive
+     $ cd ~/pretendUSBDrive
+
+Step 1 : Now we can clone our repository to this new location:
+
+     $ git clone ~/good_science
+     Cloning into good_science
+     done.
+
+Step 2 : Commit changes to the original repository
+
+     $ git cd ~/good_science
+     $ nano readme.rst
+     $ git commit -am "Some changes were added to the original repository"
+
+Step 3 : Pull those changes to the cloned repository
+
+     $ cd ~/pretendUSBDrive/good_science
+     $ git pull
+
+
+## Working with remote repositories
 
 The Hacker Within has its own online code repositories. You can check
 out code from them at any time, from anywhere. You checked out some code
