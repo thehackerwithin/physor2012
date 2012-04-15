@@ -23,7 +23,7 @@ pre-existing features.
 
 At it's core is a Python-independent C++ library. There is then a
 wrapper layer (written in Cython) which exposes the C++ functionality
-back to Python. This architechure makes PyNE both fast and usable.
+back to Python. This architecture makes PyNE both fast and usable.
 
 ## Current Contents
 
@@ -386,3 +386,112 @@ U238   0.846224196581
 
 Further information on the Material class may be seen in the library
 reference :ref:\`pyne\_material\`.
+
+## Basic Nuclear Data
+
+To accomplish many of the tasks seen in the Materials section, basic
+nuclear data may be assembled from public sources or data available to
+the user. PyNE then gives you a simple API for this data. What is
+currently collected is:
+
+-   Atomic Weights
+-   Natural Elements Isotopic Distributions
+-   Radioactive Decay Data
+-   Neutron Scattering Lengths
+-   Summary Cross Sections at Various Energies (KAERI)
+-   63-Group Cross Sections (CINDER)
+
+```python
+from pyne import data
+data.half_life('C14')
+```
+
+## PyNE I/O
+
+PyNE contains a number, but by no means comprehensive, set of readers
+and writers for common nuclear engineering file types. Currently we
+support CCCC formats, ACE, limited ENSDF, ORIGEN 2.2, Serpent, and more!
+Many of these are similar in scope and purpose so I won't cover them
+individually here. Rather, the point is to convert the plethora of
+industry-standard domain specific languages to a common format (Python)
+whereby further manipulation can take place.
+
+### Example of Use
+
+This example irradiates 1 kg of water for 1000 days in ORIGEN 2.2,
+increasing the capture cross section of Hydrogen-1 by 10% each time. The
+Hydrogen-2 concentration is then gathered and displayed. Note that in
+this example, the `'BASE_TAPE9.INP'` file must be supplied by the user.
+Additionally, the execution path for ORIGEN (here `o2_therm_linux.exe`)
+may differ by system and platform:
+
+```python
+from subprocess import check_call
+
+from pyne import origen22
+from pyne.api import Material
+
+
+# 1 kg of water
+water = Material()
+water.from_atom_frac({'H1': 2.0, 'O16': 1.0})
+water.mass = 1E3
+
+# Make a tape4 file for water
+origen22.write_tape4(water)
+
+# Make a tape 5 for this calculation
+#   * Just output the concentration tables
+#   * The cross-section library numbers must 
+#     the library / deck numbers in tape9 
+origen22.write_tape5_irradiation("IRF", 1000.0, 4E14,
+                                 xsfpy_nlb=(381, 382, 383),
+                                 out_table_num=[5])
+
+# Grab a base tape9 from which we will overlay new values
+# This must be supplied by the user
+base_tape9 = origen22.parse_tape9("BASE_TAPE9.INP")
+
+base_h1_xs = base_tape9[381]['sigma_gamma'][10010]
+
+# Init a dumb overlay tape9
+overlay_tape9 = {381: {'_type': 'xsfpy',
+                       '_subtype': 'activation_products',
+                       'sigma_gamma': {10010: base_h1_xs},
+                       }
+                }
+
+
+# Run origen, increasing the cross section each time.
+h2_concentration = []
+for i in range(11):
+    overlay_tape9[381]['sigma_gamma'][10010] = (1.0 + i*0.1) * base_h1_xs
+
+    # Merge the base and overlay, and write out
+    new_tape9 = origen22.merge_tape9([overlay_tape9, base_tape9])
+    origen22.write_tape9(new_tape9, 'TAPE9.INP')
+
+    # Run and parse origen output
+    rtn = check_call(['o2_therm_linux.exe'])
+    tape6 = origen22.parse_tape6('TAPE6.OUT')
+    h2_concentration.append(tape6['table_5']['summary']['activation_products']['H2'][-1])
+
+print
+print "H2 Concentration: ", h2_concentration
+```
+
+## Cross Section Interface
+
+Pyne provides a top-level interface for computing (and caching)
+multigroup neutron cross sections. These cross sections will be computed
+from a variety of available data sources. In order of preference:
+
+1.  63-group cross sections,
+2.  A two-point fast/thermal interpolation,
+3.  or physical models.
+
+Top-level functionality may be be found in this package's API module:
+
+In the future, this package may support generating multigroup cross
+sections from user-specified pointwise data sources (such as ENDF or ACE
+files). For example:
