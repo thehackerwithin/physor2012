@@ -305,8 +305,9 @@ as well as abandoning local changes.
 
 To switch between branches, try
 
-::
-  ~ $ git branch newbranch $ git checkout newbranch $ git branch
+    $ git branch newbranch 
+    $ git checkout newbranch  
+    $ git branch
 
 How can you tell we've switched between branches? When we used the
 branch command before there was an asterisk next to the master branch.
